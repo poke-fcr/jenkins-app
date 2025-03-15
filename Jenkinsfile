@@ -1,19 +1,30 @@
 pipeline {
-    agent any  // Runs on any available agent
+    agent any
+
+    environment {
+        VERCEL_ORG_ID = "pokefcrs-projects"
+        VERCEL_PROJECT_ID = "prj_xi9TntSFyCFBeymR5QCLLomaGmbw"
+    }
 
     stages {
-        stage("Build") {
+
+        stage("Install Dependencies") {
             steps {
-                script {
-                    bat 'npm i'
-                    bat 'npm run ng build'
-                }
+                bat 'npm install'  // For Windows
+                // sh 'npm install'  // For Linux
             }
         }
-         stage("afterBuild") {
+
+        stage("Build Angular App") {
             steps {
-                script {
-                    echo "Hello, World! Jenkins Pipeline is running 2."
+                bat 'npm run build --configuration=production'
+            }
+        }
+
+        stage("Deploy to Vercel") {
+            steps {
+                withCredentials([string(credentialsId: 'VERCEL_TOKEN', variable: 'VERCEL_TOKEN')]) {
+                    bat "vercel --token %VERCEL_TOKEN% --prod --confirm"
                 }
             }
         }
