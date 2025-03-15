@@ -5,7 +5,7 @@ pipeline {
         stage("Build") {
             steps {
                 script {
-                    echo "Hello, World! Jenkins Pipeline is running."
+                    echo "Hello, World! Jenkins Pipeline is running 2."
                 }
             }
         }
