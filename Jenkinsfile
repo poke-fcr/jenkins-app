@@ -1,10 +1,11 @@
 pipeline {
-    agent any
+    agent any  // Runs on any available agent
+
     stages {
         stage("Build") {
             steps {
                 script {
-                    echo "hello world"
+                    echo "Hello, World! Jenkins Pipeline is running."
                 }
             }
         }
