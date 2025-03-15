@@ -5,8 +5,8 @@ pipeline {
         stage("Build") {
             steps {
                 script {
-                    sh 'npm i'
-                    sh 'npm run ng build'
+                    bat 'npm i'
+                    bat 'npm run ng build'
                 }
             }
         }
