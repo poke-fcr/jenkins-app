@@ -1,7 +1,7 @@
 pipeline {
-    agent {
-        label "node18"
-    }
+    // agent {
+    //     label "node18"
+    // }
 
     environment {
         VERCEL_ORG_ID = "team_qyRbD5is0nPQ4axQk5AHhPhg"
@@ -9,6 +9,7 @@ pipeline {
     }
 
     stages {
+
 
         stage("Install Dependencies") {
             steps {
