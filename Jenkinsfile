@@ -1,34 +1,32 @@
 pipeline {
     // agent any
     agent {
-        label "node18"
+        label 'node18'
     }
 
     environment {
-        VERCEL_ORG_ID = "team_qyRbD5is0nPQ4axQk5AHhPhg"
-        VERCEL_PROJECT_ID = "prj_xi9TntSFyCFBeymR5QCLLomaGmbw"
+        VERCEL_ORG_ID = 'team_qyRbD5is0nPQ4axQk5AHhPhg'
+        VERCEL_PROJECT_ID = 'prj_xi9TntSFyCFBeymR5QCLLomaGmbw'
     }
 
     stages {
-
-
-        stage("Install Dependencies") {
+        stage('Install Dependencies') {
             steps {
-                bat 'npm install'  // For Windows
-                // sh 'npm install'  // For Linux
+                // bat 'npm install'  // For Windows
+                sh 'npm install'  // For Linux
             }
         }
 
-        stage("Build Angular App") {
+        stage('Build Angular App') {
             steps {
-                bat 'npm run build --configuration=production'
+                sh 'npm run build --configuration=production'
             }
         }
 
-        stage("Deploy to Vercel") {
+        stage('Deploy to Vercel') {
             steps {
                 withCredentials([string(credentialsId: 'VERCEL_TOKEN', variable: 'VERCEL_TOKEN')]) {
-                    bat "vercel --token %VERCEL_TOKEN% --prod --confirm"
+                    sh "vercel --token $VERCEL_TOKEN --prod --confirm"
                 }
             }
         }
